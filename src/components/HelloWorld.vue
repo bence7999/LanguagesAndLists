@@ -6,6 +6,19 @@
       check out the
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
     </p>
+    <b-container>
+      <h4>List</h4>
+      <b-list-group>
+        <b-row>
+          <b-col v-for="(col, index) in cols" v-bind:key="index">
+            <b-list-group-item v-for="(item, index) in columns[index]"
+              v-bind:key="index" variant="dark">
+              {{item}}
+            </b-list-group-item>
+          </b-col>
+        </b-row>
+      </b-list-group>
+    </b-container>
     <h3>Installed CLI Plugins</h3>
     <ul>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
@@ -37,11 +50,34 @@ export default {
   props: {
     msg: String,
   },
+  data() {
+    return {
+      items: ['apple', 'orange', 'banana', 'Hala Fruit', 'Honeyberry', 'Huckleberry', 'Jabuticaba', 'Jackfruit', 'Jambul', 'Japanese plum',
+        'Jostaberry', 'Jujube', 'Juniper berry', 'Kaffir Lime', 'Kiwano (horned melon)', 'Kiwifruit', 'Kumquat', 'Lemon', 'Lime', 'Loganberry',
+        'Loquat', 'Longan', 'Hala Fruit', 'Honeyberry', 'Huckleberry', 'Jabuticaba', 'Jackfruit', 'Jambul', 'Japanese plum', 'Jostaberry',
+        'Jujube', 'Juniper berry', 'Kaffir Lime', 'Kiwano (horned melon)', 'Kiwifruit', 'Kumquat', 'Lemon', 'Lime', 'Loganberry', 'Loquat',
+        'Rose apple', 'Salal berry', 'Salak', 'Satsuma', 'Shine Muscat or Vitis Vinifera', 'Sloe or Hawthorn Berry', 'Soursop', 'Star apple',
+        'Star fruit', 'Strawberry', 'Surinam cherry', 'Tamarillo', 'Tamarind', 'Tangelo', 'Tayberry', 'Tomato', 'Ugli fruit', 'White currant',
+      ],
+      cols: 4,
+    };
+  },
+  computed: {
+    columns() {
+      const columns = [];
+      const mid = Math.ceil(this.items.length / this.cols);
+      for (let col = 0; col < this.cols; col += 1) {
+        columns.push(this.items.slice(col * mid, col * mid + mid));
+      }
+      return columns;
+    },
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 h3 {
   margin: 40px 0 0;
 }
